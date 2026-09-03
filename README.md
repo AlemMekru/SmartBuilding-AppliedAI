@@ -7,7 +7,7 @@ The project demonstrates how an AI agent can help building operators investigate
 ## Architecture
 
 <p align="center">
-  <img src="assets/architecture.png" alt="SmartBuilding-AppliedAI Architecture" width="900">
+  <img src="app/assets/architecture.png" alt="SmartBuilding-AppliedAI Architecture" width="900">
 </p>
 
 ## Example Use Cases
@@ -70,15 +70,20 @@ Additional AWS services will be introduced as the architecture evolves.
 ```text
 SmartBuilding-AppliedAI/
 ├── app/
-│   ├── api/
 │   ├── agents/
-│   ├── services/
-│   ├── models/
+│   │   └── building_agent.py
+│   ├── api/
+│   ├── assets/
+│   │   └── architecture.png
 │   ├── data/
-│   ├── rag/
-│   ├── tools/
-│   ├── security/
+│   │   └── building_state.py
+│   ├── models/
 │   ├── monitoring/
+│   ├── rag/
+│   ├── security/
+│   ├── services/
+│   ├── tools/
+│   ├── __init__.py
 │   └── main.py
 ├── tests/
 ├── .env.example
