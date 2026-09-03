@@ -29,8 +29,10 @@ The current implementation includes:
 - Health-check API
 - Synthetic smart-building operational data
 - Strands Agents integration
-- Amazon Bedrock model integration
-- Configurable Bedrock foundation-model selection
+- Amazon Bedrock foundation-model integration
+- Configurable Bedrock model selection
+- Successful end-to-end Strands → Amazon Bedrock model invocation
+- Automated Bedrock agent connectivity testing with pytest
 - AWS authentication using a local AWS profile
 - Canada Central (`ca-central-1`) as the development region
 
@@ -56,12 +58,13 @@ Development will progressively add:
 
 ## Technology Stack
 
-- Python
+- Python 3.12
 - FastAPI
 - Strands Agents
 - Amazon Bedrock
 - AWS
 - Pydantic
+- pytest
 
 Additional AWS services will be introduced as the architecture evolves.
 
@@ -86,16 +89,30 @@ SmartBuilding-AppliedAI/
 │   ├── __init__.py
 │   └── main.py
 ├── tests/
+│   └── test_agent_connection.py
 ├── .env.example
 ├── .gitignore
+├── pytest.ini
 ├── README.md
 └── requirements.txt
 ```
+
+## Testing
+
+The project includes an integration test that verifies connectivity between the Strands agent and Amazon Bedrock.
+
+Run the test using:
+
+```bash
+AWS_PROFILE=smartbuilding pytest tests/test_agent_connection.py -v
+```
+
+A successful test confirms that the application can authenticate with AWS, initialize the Strands agent, invoke the configured Bedrock foundation model, and receive a response.
 
 ## Development Status
 
 🚧 **In active development**
 
-The core FastAPI application and Strands/Amazon Bedrock agent integration are configured. The next milestone is connecting the agent to synthetic smart-building tools and operational data.
+The core FastAPI application, Strands agent framework, Amazon Bedrock model integration, AWS authentication, and automated connectivity test are operational.
 
-> Amazon Bedrock model invocation is pending completion of AWS account verification.
+The next milestone is to give the agent its first smart-building tool, allowing it to retrieve and reason over synthetic operational data.
