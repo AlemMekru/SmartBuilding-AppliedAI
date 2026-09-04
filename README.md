@@ -20,6 +20,69 @@ The platform is being designed to answer operational questions such as:
 - Are there active HVAC alarms affecting this zone?
 - What maintenance history is relevant to this equipment?
 
+## Example Agent Interaction
+
+The following example demonstrates the agent using Strands tool calling to investigate a smart-building issue using synthetic operational data.
+
+### User Prompt
+
+```text
+Why is meeting_room_204 unusually warm? Use the available building data.
+```
+
+### Agent Tool Call
+
+```text
+Tool: get_zone_status
+Zone: meeting_room_204
+```
+
+The tool retrieves the current operational state:
+
+```text
+Temperature:    26.8°C
+Setpoint:       22.0°C
+Occupancy:      6
+HVAC Status:    fault
+Active Alarm:   VAV-204 airflow fault
+Lighting:       on
+Access Status:  normal
+```
+
+### Grounded AI Response
+
+```text
+meeting_room_204 is unusually warm due to an HVAC fault.
+
+The current temperature is 26.8°C compared with a 22.0°C setpoint,
+which is 4.8°C above target.
+
+The HVAC system reports an active "VAV-204 airflow fault." This indicates
+that the VAV unit is not properly delivering conditioned air to the room,
+preventing the zone from reaching its target temperature.
+
+The recommended next step is to have HVAC maintenance investigate
+VAV-204 and verify airflow after the fault is resolved.
+```
+
+This demonstrates the core agent workflow:
+
+```text
+User Question
+     ↓
+Strands Agent
+     ↓
+get_zone_status Tool
+     ↓
+Synthetic Building Data
+     ↓
+Amazon Bedrock Foundation Model
+     ↓
+Grounded Operational Response
+```
+
+> All building data shown in this example is synthetic and created specifically for this project.
+
 ## Current Implementation
 
 The current implementation includes:
