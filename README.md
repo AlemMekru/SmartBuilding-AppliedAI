@@ -35,6 +35,10 @@ The current implementation includes:
 - Automated Bedrock agent connectivity testing with pytest
 - AWS authentication using a local AWS profile
 - Canada Central (`ca-central-1`) as the development region
+- Strands tool-calling integration
+- Synthetic smart-building zone-status tool
+- Agent reasoning over live tool results
+- Automated tests for Bedrock connectivity and tool-grounded responses
 
 No proprietary building or customer data is used. All operational data in this repository is synthetic.
 
@@ -46,7 +50,6 @@ Development will progressively add:
 - Alarm investigation
 - Lighting and energy analysis
 - Access-control event analysis
-- Agent tool calling
 - Retrieval-Augmented Generation (RAG)
 - Equipment manuals and operational knowledge
 - Role-based access controls
@@ -86,10 +89,12 @@ SmartBuilding-AppliedAI/
 │   ├── security/
 │   ├── services/
 │   ├── tools/
+│   │   └── building_tools.py
 │   ├── __init__.py
 │   └── main.py
 ├── tests/
-│   └── test_agent_connection.py
+│   ├── test_agent_connection.py
+│   └── test_building_tool_agent.py
 ├── .env.example
 ├── .gitignore
 ├── pytest.ini
@@ -99,13 +104,36 @@ SmartBuilding-AppliedAI/
 
 ## Testing
 
-The project includes an integration test that verifies connectivity between the Strands agent and Amazon Bedrock.
+The project includes automated integration tests covering:
 
-Run the test using:
+- Strands → Amazon Bedrock model connectivity
+- Agent tool calling against synthetic smart-building operational data
+- Grounding AI responses in retrieved zone status, HVAC fault, and alarm data
+
+Run the complete test suite with:
 
 ```bash
-AWS_PROFILE=smartbuilding pytest tests/test_agent_connection.py -v
+AWS_PROFILE=smartbuilding pytest tests/ -v
 ```
+
+### Latest Verified Test Run
+
+```text
+platform darwin -- Python 3.12.10, pytest-9.1.1
+collected 2 items
+
+tests/test_agent_connection.py::test_agent_connection PASSED             [ 50%]
+tests/test_building_tool_agent.py::test_agent_uses_building_data PASSED  [100%]
+
+2 passed in 6.52s
+```
+
+The successful test run verifies that the application can:
+
+1. Authenticate with AWS and invoke an Amazon Bedrock foundation model through a Strands agent.
+2. Allow the agent to autonomously call the `get_zone_status` tool.
+3. Retrieve synthetic operational building data.
+4. Ground its response in actual retrieved values, including temperature, setpoint, and the `VAV-204 airflow fault`.
 
 A successful test confirms that the application can authenticate with AWS, initialize the Strands agent, invoke the configured Bedrock foundation model, and receive a response.
 
@@ -113,6 +141,6 @@ A successful test confirms that the application can authenticate with AWS, initi
 
 🚧 **In active development**
 
-The core FastAPI application, Strands agent framework, Amazon Bedrock model integration, AWS authentication, and automated connectivity test are operational.
+The core FastAPI application, Strands agent framework, Amazon Bedrock model integration, AWS authentication, smart-building tool calling, and automated tests are operational.
 
-The next milestone is to give the agent its first smart-building tool, allowing it to retrieve and reason over synthetic operational data.
+The next milestone is expanding the building toolset with alarms, energy, maintenance history, and access-control data.

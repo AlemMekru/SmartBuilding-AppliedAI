@@ -3,6 +3,7 @@ import os
 import boto3
 from strands import Agent
 from strands.models import BedrockModel
+from app.tools.building_tools import get_zone_status
 
 
 def create_building_agent() -> Agent:
@@ -22,9 +23,11 @@ def create_building_agent() -> Agent:
 
     return Agent(
         model=model,
+        tools=[get_zone_status],
         system_prompt=(
             "You are an AI assistant for smart building operations. "
             "You help operators investigate HVAC, lighting, energy, "
-            "and access-control issues using approved building data and tools."
+            "and access-control issues using approved building data and tools. "
+            "Use available tools whenever operational building data is needed."
         ),
     )
