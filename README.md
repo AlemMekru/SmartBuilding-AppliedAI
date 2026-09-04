@@ -316,3 +316,12 @@ The next milestone is integrating live temperature and humidity telemetry from a
 The resulting telemetry will be exposed to the Strands agent as an operational tool, allowing the foundation model running through Amazon Bedrock to reason over real environmental measurements.
 
 Subsequent milestones will expand the platform with alarm, energy, maintenance, access-control, RAG, security, observability, evaluation, and AI-governance capabilities.
+
+## Author
+
+**Alem Mekru**
+
+AI Engineer | MSc Artificial Intelligence | Doctoral Researcher in Applied Artificial Intelligence
+
+- GitHub: https://github.com/AlemMekru
+- LinkedIn: https://www.linkedin.com/in/alemmekru/
