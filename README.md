@@ -24,7 +24,7 @@ The project is extending beyond synthetic building data to incorporate real envi
 - Amazon Bedrock for foundation-model inference
 
 <p align="center">
-  <img src="app/assets/snzb-02d-sensor.png"
+  <img src="app/assets/snzb-02d-sensor.jpg"
        alt="SONOFF SNZB-02D physical temperature and humidity sensor used by SmartBuilding-AppliedAI"
        width="450">
 </p>
